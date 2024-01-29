@@ -10,8 +10,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-native-fontawesome": "^0.3.0",
     "react": "18.2.0",
-    "react-native": "0.72.7"
+    "react-native": "0.72.7",
+    "react-native-fontawesome": "^7.0.0",
+    "react-native-svg": "^14.1.0",
+    "react-native-vector-icons": "^10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -21,6 +29,7 @@
     "@react-native/metro-config": "^0.72.11",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.0.24",
+    "@types/react-native-vector-icons": "^6.4.18",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",

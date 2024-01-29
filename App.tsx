@@ -1,45 +1,79 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
+
+/*Componentes*/ 
+import Topo from './src/telas/home/componentes/topo';
+import UserValor from './src/telas/home/componentes/valorUser'
+import Mycards from './src/telas/home/componentes/mycards';
+
+// Lib Icons
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+// Icons
+import { faBarcode } from '@fortawesome/free-solid-svg-icons/faBarcode';
+import { faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons/faMoneyBillTransfer';
+import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons/faHandHoldingDollar';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import { faMobileScreen } from '@fortawesome/free-solid-svg-icons/faMobileScreen';
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
+import { faSignal } from '@fortawesome/free-solid-svg-icons/faSignal';
+
+
+
 
 // Componente principal App
 export default function App() {
+  
+  const shortcutsData = [
+    { id: '1', icon: faDollarSign, text: 'Pix' },
+    { id: '2', icon: faBarcode, text: 'Pagar' },
+    { id: '3', icon: faMoneyBillTransfer, text: 'Transferir' },
+    { id: '4', icon: faHandHoldingDollar, text: 'Depositar' },
+    { id: '5', icon: faMobileScreen, text: 'Recarga Cel.'},
+    { id: '6', icon: faMoneyBill, text: 'Cobrar' },
+    { id: '7', icon: faHeart, text: 'Doação' },
+    { id: '8', icon: faGlobe, text: 'Tranferir Int.'},
+    { id: '9', icon: faSignal, text: 'Investir' },
+  ];
+
+  const renderShortcutItem = ({ item }) => (
+    <View style={[styles.lineupShortcuts, { marginRight: 10 }]}>
+      <View style={styles.circleShortcuts}>
+        <FontAwesomeIcon style={styles.iconShortcuts} size={28} icon={item.icon} />
+      </View>
+      <Text style={styles.textShortcuts}>{item.text}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       {/* Cabeçalho */}
-
-      <View style={styles.containerHeader}>
-        <View style={styles.headerPaddingText}>
-          <Text style={styles.headerTextUserName}>Olá, Vinicius</Text>
-        </View>
-
-        <View style={styles.headerPaddingText}>
-          <Text style={styles.headerText}>Nubank</Text>
-        </View>
+      <View>
+        <Topo/>
       </View>
-      
-
 
       <ScrollView style={styles.main}>
         {/* Seção de Saldo */}
-        <View style={styles.balanceContainer}>
-          <Text style={styles.balanceText}>Saldo Disponível</Text>
-          <Text style={styles.balanceAmount}>R$ 450,00</Text>
+        <View>
+          <UserValor/>
         </View>
-
-        {/* Seção de Atalhos */}
-        <View style={styles.shortcutsContainer}>
-          <Text style={styles.shortcutsTitle}>Atalhos</Text>
-
-          <View style={styles.shortcut}>
-            <Text style={styles.shortcutText}>Pagar</Text>
-          </View>
         
-          <View style={styles.shortcut}>
-            <Text style={styles.shortcutText}>Transferir</Text>
-          </View>
+        {/* Seção de Atalhos com scroll lateral */}
+        <View style={styles.shortcutsContainer}>
+          <FlatList
+            data={shortcutsData}
+            renderItem={renderShortcutItem}
+            keyExtractor={(item) => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
 
-  
+        {/* Seção Meus Cartões*/}
+        <View>
+          <Mycards/>
+        </View>
       </ScrollView>
     </View>
   );
@@ -47,66 +81,50 @@ export default function App() {
 
 // Estilos
 const styles = StyleSheet.create({
+  /* Cabeçalho */
   container: {
     flex: 1,
     backgroundColor: '#8a05be',
-  },
-  containerHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#8a05be',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerPaddingText: {
-    padding: 30,
-  },
-  headerText: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  headerTextUserName: {
-    fontSize: 15,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+    },
+  /* Body */
   main: {
     flex: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
     backgroundColor: '#fff',
     padding: 20,
   },
-  balanceContainer: {
-    marginBottom: 20,
-  },
-  balanceText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  balanceAmount: {
-    fontSize: 28,
-    color: '#333',
-    fontWeight: 'bold',
-  },
   shortcutsContainer: {
-    marginBottom: 20,
+    marginTop: 5,
+    marginBottom: 35,
   },
-  shortcutsTitle: {
-    fontSize: 18,
+  LineShortcuts: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  circleShortcuts: {
+    width: 75,
+    height: 75,
+    borderRadius: 75,
+    backgroundColor: '#EAEBEE',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconShortcuts: {
+    fontSize: 23,
+    color: 'black',
+  },
+  textShortcuts: {
+    fontSize: 14,
     color: '#333',
-    marginBottom: 10,
-  },
-  shortcut: {
-    backgroundColor: '#8a05be',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  shortcutText: {
-    fontSize: 16,
-    color: '#fff',
+    paddingTop: 8,
     fontWeight: 'bold',
-    textAlign: 'center',
+  },
+  lineupShortcuts: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5
   },
 });
