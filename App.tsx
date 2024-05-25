@@ -1,25 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
-
 /*Componentes*/ 
-import Topo from './src/telas/home/componentes/topo';
-import UserValor from './src/telas/home/componentes/valorUser'
-import Mycards from './src/telas/home/componentes/mycards';
-
-// Lib Icons
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-// Icons
-import { faBarcode } from '@fortawesome/free-solid-svg-icons/faBarcode';
-import { faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons/faMoneyBillTransfer';
-import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons/faHandHoldingDollar';
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
-import { faMobileScreen } from '@fortawesome/free-solid-svg-icons/faMobileScreen';
-import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
-import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
-import { faSignal } from '@fortawesome/free-solid-svg-icons/faSignal';
+import {Header, Mycard, TotalConta, CreditCard, Carrosel} from './src/MeusComponentes/';
+/*Telas*/
+import {HomePageUser} from './src/telas'
 
 
+
+/* NECESSÁRIO TIRAR DO APP.TSX */
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
+/*Icons*/
+import 
+{faHandHoldingDollar, 
+faDollarSign, 
+faBarcode, 
+faMoneyBillTransfer,
+faMobileScreen,
+faMoneyBill,
+faHeart,
+faGlobe,
+faSignal
+} from '@fortawesome/free-solid-svg-icons';
 
 
 // Componente principal App
@@ -37,43 +37,41 @@ export default function App() {
     { id: '9', icon: faSignal, text: 'Investir' },
   ];
 
-  const renderShortcutItem = ({ item }) => (
-    <View style={[styles.lineupShortcuts, { marginRight: 10 }]}>
-      <View style={styles.circleShortcuts}>
-        <FontAwesomeIcon style={styles.iconShortcuts} size={28} icon={item.icon} />
-      </View>
-      <Text style={styles.textShortcuts}>{item.text}</Text>
-    </View>
-  );
 
   return (
     <View style={styles.container}>
       {/* Cabeçalho */}
       <View>
-        <Topo/>
+        <Header/>
       </View>
 
       <ScrollView style={styles.main}>
         {/* Seção de Saldo */}
         <View>
-          <UserValor/>
+          <TotalConta/>
         </View>
         
         {/* Seção de Atalhos com scroll lateral */}
-        <View style={styles.shortcutsContainer}>
+        <View>
           <FlatList
             data={shortcutsData}
-            renderItem={renderShortcutItem}
+            renderItem={Carrosel}
             keyExtractor={(item) => item.id}
             horizontal
             showsHorizontalScrollIndicator={false}
           />
         </View>
 
-        {/* Seção Meus Cartões*/}
+        {/*Seção Meus Cartões*/}
         <View>
-          <Mycards/>
+          <Mycard/>
         </View>
+
+        {/*Seção Cartão De Crédito*/}
+        <View>
+          <CreditCard/>
+        </View>
+
       </ScrollView>
     </View>
   );
@@ -93,38 +91,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     backgroundColor: '#fff',
     padding: 20,
-  },
-  shortcutsContainer: {
-    marginTop: 5,
-    marginBottom: 35,
-  },
-  LineShortcuts: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 10,
-  },
-  circleShortcuts: {
-    width: 75,
-    height: 75,
-    borderRadius: 75,
-    backgroundColor: '#EAEBEE',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconShortcuts: {
-    fontSize: 23,
-    color: 'black',
-  },
-  textShortcuts: {
-    fontSize: 14,
-    color: '#333',
-    paddingTop: 8,
-    fontWeight: 'bold',
-  },
-  lineupShortcuts: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5
-  },
+  }
 });
